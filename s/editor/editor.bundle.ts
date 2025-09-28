@@ -1,25 +1,32 @@
 
-import {dom} from "@e280/sly"
-import {Salad} from "@e280/lettuce"
+import {html, css} from "lit"
+import {dom, view} from "@e280/sly"
 
 import {EditorContext} from "./context/context.js"
-import {getAboutPanel} from "./dom/panels/about/panel.js"
-import {getUnknownPanel} from "./dom/panels/unknown/panel.js"
 
 const context = await EditorContext.setup()
 
-// register omniclip components to the dom
-dom.register(context.getElements())
+class OmniEditor extends view.component(use => {
+	use.styles(css`
+		:host {
+			display: flex;
+			flex-direction: column;
+			height: 100vh;
+			overflow: hidden;
+		}
+		main {
+			flex: 1;
+			overflow: auto;
+		}
+	`)
 
-// setup lettuce layout system
-Salad
-	.panels(() => ({
-		AboutPanel: getAboutPanel(context),
-		UnknownPanel: getUnknownPanel(context),
-	}))
-	.layout(layman => ({
-		empty: layman.single("AboutPanel"),
-		default: layman.single("AboutPanel"),
-	}))
-	.setup()
 
+	return html`
+		${context.views.Nav}
+		<main>
+			${context.router.render()}
+		</main>
+	`
+}) {}
+
+dom.register({...context.getElements(), OmniEditor})
