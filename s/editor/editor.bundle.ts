@@ -6,7 +6,7 @@ import {EditorContext} from "./context/context.js"
 
 const context = await EditorContext.setup()
 
-class OmniEditor extends view.component(use => {
+class OmniRouter extends view.component(use => {
 	use.styles(css`
 		:host {
 			display: flex;
@@ -29,4 +29,4 @@ class OmniEditor extends view.component(use => {
 	`
 }) {}
 
-dom.register({...context.getElements(), OmniEditor})
+dom.register({...context.getElements(), OmniRouter})
