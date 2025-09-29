@@ -1,8 +1,8 @@
 
 import {html} from "lit"
 import {spa, view} from "@e280/sly"
-import styleCss from "./style.css"
-import themeCss from "../../theme.css"
+import styleCss from "./style.css.js"
+import themeCss from "../../theme.css.js"
 import {EditorContext} from "../../context/context.js"
 
 export const EditorApp = (context: EditorContext) => view.component(use => {

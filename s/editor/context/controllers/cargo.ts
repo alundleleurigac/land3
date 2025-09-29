@@ -1,5 +1,6 @@
 
 import {Cellar} from "@e280/quay"
+import {collect} from "@e280/stz"
 import {Strata} from "../parts/strata.js"
 
 export class CargoController {
@@ -7,7 +8,7 @@ export class CargoController {
 
 	async refresh() {
 		await this.strata.files.mutate(async s => {
-			s.hashes = await Array.fromAsync(this.cellar.list())
+			s.hashes = await collect(this.cellar.list())
 		})
 	}
 

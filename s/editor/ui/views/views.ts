@@ -1,8 +1,8 @@
 
+import {provide} from "@e280/stz"
 import {shiny, themes, ShinyViews} from "@e280/shiny"
-import {EditorContext} from "../../context/context.js"
-import {provide} from "../../../tools/provide.js"
 import {Example} from "./example/view.js"
+import {EditorContext} from "../../context/context.js"
 
 export const shinyViews = shiny({theme: themes.basic}).views
 

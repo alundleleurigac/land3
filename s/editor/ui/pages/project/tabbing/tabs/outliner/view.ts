@@ -1,8 +1,8 @@
 
 import {html} from "lit"
 import {view} from "@e280/sly"
-import styleCss from "./style.css"
-import themeCss from "../../../../../../theme.css"
+import styleCss from "./style.css.js"
+import themeCss from "../../../../../../theme.css.js"
 
 export const OutlinerTab = view(use => () => {
 	use.styles(themeCss, styleCss)
