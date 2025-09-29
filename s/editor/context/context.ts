@@ -1,9 +1,8 @@
 
-import {editorViews, prepareViews, shinyViews} from "./parts/views.js"
-// import {makeRouter} from "./parts/router.js"
-import {provide} from "../../tools/provide.js"
-import {Requirements, setupRequirements} from "./parts/requirements.js"
+import {makeRouter} from "./parts/router.js"
+import {prepareViews} from "./parts/views.js"
 import {mkOmniMedia} from "../dom/components/omni-media/element.js"
+import {Requirements, setupRequirements} from "./parts/requirements.js"
 
 export class EditorContext {
 	static async setup() {
@@ -13,8 +12,7 @@ export class EditorContext {
 
 	constructor(private requirements: Requirements) {}
 
-	// router = makeRouter(this)
-
+	router = makeRouter(this)
 	views = prepareViews(this)
 
 	getElements = () => ({

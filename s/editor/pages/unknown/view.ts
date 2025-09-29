@@ -1,10 +1,11 @@
+
 import {html} from "lit"
 import {view} from "@e280/sly"
-
 import styleCss from "./style.css.js"
 import themeCss from "../../theme.css.js"
+import {EditorContext} from "../../context/context.js"
 
-export const UnknownPage = view(use => () => {
+export const UnknownPage = (context: EditorContext) => view(use => () => {
 	use.name("unknown")
 	use.styles(themeCss, styleCss)
 
@@ -12,3 +13,4 @@ export const UnknownPage = view(use => () => {
 		<h1>unknown</h1>
 	`
 })
+

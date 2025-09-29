@@ -1,13 +1,12 @@
 
 import {html} from "lit"
-import {spa, View, view} from "@e280/sly"
-
+import {spa, view} from "@e280/sly"
 import styleCss from "./style.css.js"
 import themeCss from "../../../theme.css.js"
 import {EditorContext} from "../../../context/context.js"
 
 export const Nav = (context: EditorContext) => view(use => () => {
-	// const {router} = context
+	const {router} = context
 	use.styles(themeCss, styleCss)
 
 	function renderLink(label: string, navigable: spa.Navigable) {
@@ -16,13 +15,13 @@ export const Nav = (context: EditorContext) => view(use => () => {
 		return html`<a href="${hash}" class="${className}">${label}</a>`
 	}
 
-	// return html`
-	// 	<h2>Omniclip</h2>
-	// 	<div class="links">
-	// 		${renderLink("About", router.nav.home)}
-	// 		${renderLink("Projects", router.nav.projects)}
-	// 		${renderLink("Account", router.nav.account)}
-	// 	</div>
-	// `
+	return html`
+		<h2>Omniclip</h2>
+		<div class="links">
+			${renderLink("About", router.nav.home)}
+			${renderLink("Projects", router.nav.projects)}
+			${renderLink("Account", router.nav.account)}
+		</div>
+	`
 })
 

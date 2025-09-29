@@ -5,13 +5,12 @@ export default css`@layer view {
 :host {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
-	min-height: 0;
+	flex: 1;
 }
 
-.app {
+.tab-content {
 	flex: 1;
-	min-height: 0;
+	overflow: auto;
 }
 
 }`
