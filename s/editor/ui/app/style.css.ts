@@ -37,7 +37,6 @@ nav {
 section {
 	width: 100%;
 	height: 100%;
-	overflow: auto;
 	background: #fff1;
 
 	> sly-view {

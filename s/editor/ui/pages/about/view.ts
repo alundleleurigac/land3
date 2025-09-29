@@ -15,7 +15,7 @@ export const AboutPage = (context: EditorContext) => view(use => () => {
 	return html`
 		<header theme=topper></header>
 
-		<section theme=mid>
+		<section theme=paddy>
 			<img alt="" src="/assets/logo/omni.avif"/>
 			<h2>
 				<strong>Omniclip</strong>

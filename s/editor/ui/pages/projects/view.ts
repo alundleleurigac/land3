@@ -12,7 +12,7 @@ export const ProjectsPage = (context: EditorContext) => view(use => () => {
 	return html`
 		<header theme=topper></header>
 
-		<div theme=mid>
+		<div theme=paddy>
 			<h1>Projects</h1>
 			<p>The project browser will be here.</p>
 		<div>

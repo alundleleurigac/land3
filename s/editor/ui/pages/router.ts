@@ -8,7 +8,7 @@ import {ProjectsPage} from "./projects/view.js"
 import {EditorContext} from "../../context/context.js"
 
 export const makeRouter = (context: EditorContext) => new spa.Router({
-	notFound: async() => UnknownPage(context)(),
+	notFound: () => UnknownPage(context)(),
 	routes: {
 		home: spa.route("#/", async() => AboutPage(context)()),
 		account: spa.route("#/account", async() => AccountPage(context)()),

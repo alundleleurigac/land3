@@ -12,7 +12,7 @@ export const AccountPage = (context: EditorContext) => view(use => () => {
 	return html`
 		<header theme=topper></header>
 
-		<div theme=mid>
+		<div theme=paddy>
 			<h1>Account</h1>
 			<p>User account settings will be here.</p>
 		<div>

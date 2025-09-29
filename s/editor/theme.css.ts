@@ -38,19 +38,22 @@ a {
 }
 
 [theme="paddy"] {
-	padding: 1em;
-}
-
-[theme="mid"] {
-	flex: 1 1 auto;
+	flex: 1 1 0;
+	overflow: auto;
 
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: start;
 	align-items: center;
 
 	gap: 0.5em;
 	padding: 1em;
+
+	&::before, &::after {
+		content: "";
+		display: block;
+		flex: 1 1 0;
+	}
 }
 
 }`
