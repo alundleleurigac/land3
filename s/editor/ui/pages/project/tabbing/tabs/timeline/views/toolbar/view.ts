@@ -4,6 +4,7 @@ import {view} from "@e280/sly"
 import styleCss from "./style.css.js"
 import themeCss from "../../../../../../../../theme.css.js"
 import playSvg from "../../../../../../../icons/gravity-ui/play.svg.js"
+import {EditorContext} from "../../../../../../../../context/context.js"
 import pauseSvg from "../../../../../../../icons/gravity-ui/pause.svg.js"
 import scissorsSvg from "../../../../../../../icons/gravity-ui/scissors.svg.js"
 import redoSvg from "../../../../../../../icons/material-design-icons/redo.svg.js"
@@ -11,39 +12,67 @@ import undoSvg from "../../../../../../../icons/material-design-icons/undo.svg.j
 import zoomInSvg from "../../../../../../../icons/material-design-icons/zoom-in.svg.js"
 import zoomOutSvg from "../../../../../../../icons/material-design-icons/zoom-out.svg.js"
 
-export const Toolbar = view(use => () => {
+export const Toolbar = view(use => (context: EditorContext) => {
 	use.styles(themeCss, styleCss)
 	const isPlaying = use.signal(false)
+	const canUndo = false
+	const canRedo = false
 
 	return html`
 		<div class="toolbar">
-			<div class="button-group">
-				<button @click=${() => console.log("undo")} ?disabled=${"!canUndo"}>
-					${undoSvg}
-				</button>
-				<button @click=${() => console.log("redo")} ?disabled=${"!canRedo"}>
-					${redoSvg}
-				</button>
+			<div class="toolbar-section left">
+				<div class="button-group">
+					<button @click=${() => console.log("undo")} ?disabled=${!canUndo}>
+						${undoSvg}
+					</button>
+					<button @click=${() => console.log("redo")} ?disabled=${!canRedo}>
+						${redoSvg}
+					</button>
+				</div>
+				<div class="button-group">
+					<button title="Split Clip (S)">
+						${scissorsSvg}
+					</button>
+				</div>
 			</div>
-			<div class="button-group">
-				<button>
-					${scissorsSvg}
-				</button>
+
+			<div class="toolbar-section center">
+				<div class="button-group">
+					<button
+						class="play-pause"
+						@click=${() => isPlaying.value = !isPlaying.value}>
+						${isPlaying.value ? pauseSvg : playSvg}
+					</button>
+				</div>
 			</div>
-			<div class="button-group">
-				<button
-					class="play-pause"
-					@click=${() => isPlaying(!isPlaying.value)}>
-					${isPlaying.value ? pauseSvg : playSvg}
-				</button>
-			</div>
-			<div class="button-group">
-				<button @click=${() => console.log("zoom in")}>
-					${zoomInSvg}
-				</button>
-				<button @click=${() => console.log("zoom out")}>
-					${zoomOutSvg}
-				</button>
+
+			<div class="toolbar-section right">
+				<div class="zoom-controls">
+					<button class="zoom-button" @click=${async () =>
+						await context.strata.settings
+							.mutate(s => s.zoom -= 0.1)
+					}>
+						${zoomOutSvg}
+					</button>
+					<input
+						type="range"
+						class="zoom-slider"
+						min="0.2"
+						max="10"
+						step="0.1"
+						.value=${context.strata.settings.state.zoom}
+						@input=${async (e: Event) =>
+							await context.strata.settings
+								.mutate(s => s.zoom = +(e.currentTarget as HTMLInputElement).value)
+						}
+					>
+					<button class="zoom-button" @click=${async () =>
+						await context.strata.settings
+							.mutate(s => s.zoom += 0.1)
+					}>
+						${zoomInSvg}
+					</button>
+				</div>
 			</div>
 		</div>
 	`

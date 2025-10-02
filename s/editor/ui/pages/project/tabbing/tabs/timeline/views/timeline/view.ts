@@ -8,8 +8,9 @@ import {Playhead} from "../playhead/view.js"
 import {TimelineTrack} from "../track/view.js"
 import {crawl} from "../../../../utils/tree.js"
 import themeCss from "../../../../../../../../theme.css.js"
+import {EditorContext} from "../../../../../../../../context/context.js"
 
-export const TimelineArea = view(use => () => {
+export const TimelineArea = view(use => (context: EditorContext) => {
 	use.styles(themeCss, styleCss)
 
 	// mock state
@@ -34,7 +35,7 @@ export const TimelineArea = view(use => () => {
       <div class="corner-box"></div>
 
       <div class="ruler-container">
-        ${Ruler()}
+        ${Ruler(context)}
       </div>
 
       <div class="playhead-container">

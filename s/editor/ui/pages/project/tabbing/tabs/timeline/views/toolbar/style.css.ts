@@ -2,30 +2,56 @@ import {css} from "lit"
 
 export default css`@layer view {
 
+:host {
+	width: 100%;
+}
+
 .toolbar {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	padding: 0.5em 1em;
+}
+
+.toolbar > * {
+	pointer-events: auto;
+}
+
+.toolbar-section {
 	display: flex;
 	align-items: center;
-	justify-content: center;
 	gap: 1.5em;
-	padding: 0.5em;
-	background: #1a1a1a;
-	border-bottom: 1px solid #2a2a2a;
-	flex-shrink: 0;
+}
+
+.toolbar-section.left {
+	grid-column: 1;
+	justify-self: start;
+	margin-left: 1em;
+}
+
+.toolbar-section.center {
+	grid-column: 2;
+	justify-self: center;
+}
+
+.toolbar-section.right {
+	grid-column: 3;
+	justify-self: end;
+	margin-right: 1em;
 }
 
 .button-group {
 	display: flex;
-	gap: 0.5em;
 }
 
 button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 2.5em;
-	height: 2.5em;
-	background: #252525;
-	border: 1px solid #333;
+	width: 2em;
+	height: 2em;
+	background: transparent;
+	border: none;
 	color: #aaa;
 	border-radius: 0.5em;
 	cursor: pointer;
@@ -45,18 +71,69 @@ button:disabled {
 }
 
 button svg {
-	width: 1.5em;
-	height: 1.5em;
+	width: 1.2em;
+	height: 1.2em;
 }
 
 .play-pause {
-	background: var(--prime);
-	border-color: transparent;
-	color: black;
+	color: gray;
 }
 
 .play-pause:hover {
 	filter: brightness(1.2);
 }
 
-}`
+.zoom-controls {
+	display: flex;
+	align-items: center;
+	gap: 0.8em;
+}
+
+.zoom-button {
+	width: 2em;
+	height: 2em;
+}
+
+.zoom-slider {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100px;
+	height: 4px;
+	background: #333;
+	border-radius: 2px;
+	outline: none;
+	cursor: pointer;
+}
+
+/* Chrome, Safari, Opera, Edge */
+.zoom-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	background: #aaa;
+	border-radius: 50%;
+	border: 2px solid #252525;
+	transition: background 0.2s ease;
+}
+
+.zoom-slider::-webkit-slider-thumb:hover {
+	background: #ccc;
+}
+
+/* Firefox */
+.zoom-slider::-moz-range-thumb {
+	width: 14px;
+	height: 14px;
+	background: #aaa;
+	transition: background 0.2s ease;
+}
+
+.zoom-slider::-moz-range-thumb:hover {
+	background: #ccc;
+}
+
+}
+`
+
+

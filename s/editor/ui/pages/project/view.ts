@@ -18,7 +18,7 @@ export const ProjectPage = (context: EditorContext) => view(use => (projectId: s
 
 	const renderActiveTab = () => {
 		switch (manager.activeTabId.value) {
-			case "timeline": return TimelineTab()
+			case "timeline": return TimelineTab(context)
 			case "outliner": return OutlinerTab()
 			default: return html`<p>Unknown tab</p>`
 		}
