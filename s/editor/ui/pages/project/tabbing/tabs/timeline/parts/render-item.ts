@@ -1,4 +1,5 @@
-import {html} from "lit";
+import {html} from "lit"
+import {Content} from "@e280/sly"
 import {Item, Kind} from "@omnimedia/omnitool"
 
 import {StackView} from "../views/track/view.js"
@@ -6,7 +7,7 @@ import {TimelineVideo} from "../views/items/video/view.js"
 import {SequenceView} from "../views/items/sequence/view.js"
 import {EditorContext} from "../../../../../../../context/context.js"
 
-export function renderItem(context: EditorContext, id: number) {
+export function renderItem(context: EditorContext, id: number): Content {
 	const itemsMap = new Map(
 		context.strata.timeline.state.timeline.items
 			.map(item => [item.id, item])
