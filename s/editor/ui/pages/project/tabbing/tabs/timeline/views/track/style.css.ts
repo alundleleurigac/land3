@@ -3,7 +3,9 @@ import {css} from "lit"
 export default css`@layer view {
 
 :host {
-	display: contents;
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	width: 100%;
 }
 
 .track-header {
@@ -55,14 +57,11 @@ export default css`@layer view {
 }
 
 .track-content {
-	display: flex;
 	grid-column: 2;
-
 	position: relative;
 	background: #1f1f1f;
 	border-bottom: 1px solid #1a1a1a;
 }
 
 }`
-
 

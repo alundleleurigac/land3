@@ -3,12 +3,14 @@ import {html, TemplateResult} from "lit"
 import {Item} from "@omnimedia/omnitool"
 
 import styleCss from "./style.css.js"
+import {DirectiveResult} from "lit/directive.js"
+import themeCss from "../../../../../../../../../theme.css.js"
 
 export const TimelineItem = view(use => (
 	item: Item.Clip,
-	content: TemplateResult,
+	content: TemplateResult | DirectiveResult,
 ) => {
-	use.styles(styleCss)
+	use.styles(styleCss, themeCss)
 
 	return html`
 		<div
