@@ -1,5 +1,7 @@
 
 import {Cellar, OpfsForklift} from "@e280/quay"
+import {O, TimelineFile, VideoPlayer} from "@omnimedia/omnitool"
+
 import {Strata} from "./strata.js"
 import {CargoController} from "../controllers/cargo.js"
 import {Keybindings} from "../controllers/input/keybindings.js"
@@ -15,7 +17,16 @@ export async function setupRequirements() {
 	const cellar = new Cellar(forklift)
 	const controllers = {
 		cargo: new CargoController(strata, cellar),
+		player: await VideoPlayer.create(strata.timeline.state.timeline as TimelineFile)
 	}
-	return {strata, controllers, tabs, keybindings}
+	const omni = new O({
+		get project() {
+			return strata.timeline.state.timeline as TimelineFile
+		},
+		set project(p: TimelineFile) {
+			strata.timeline.mutate(state => state.timeline = p)
+		}
+	})
+	return {strata, controllers, tabs, keybindings, omni}
 }
 

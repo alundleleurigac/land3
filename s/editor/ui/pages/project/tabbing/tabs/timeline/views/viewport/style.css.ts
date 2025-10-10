@@ -9,6 +9,7 @@ export default css`@layer view {
 }
 
 canvas {
+	width: 500px;
 	background: var(--bg);
 }
 }`

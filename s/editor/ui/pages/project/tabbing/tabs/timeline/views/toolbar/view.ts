@@ -17,6 +17,16 @@ export const Toolbar = view(use => (context: EditorContext) => {
 	const isPlaying = use.signal(false)
 	const canUndo = false
 	const canRedo = false
+	const player = context.controllers.player
+
+	use.mount(() => {
+		const dispose = isPlaying.on(async (v) => {
+			if(v)
+				await player.play()
+			else player.pause()
+		})
+		return () => dispose()
+	})
 
 	return html`
 		<div class="toolbar">

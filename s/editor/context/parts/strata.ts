@@ -1,6 +1,11 @@
 
 import {Chronicle, Trunk} from "@e280/strata"
-import { Kind, TimelineFile } from "@omnimedia/omnitool"
+import {Omni, Datafile, TimelineFile} from "@omnimedia/omnitool"
+
+const demoVideo = await fetch("/assets/transitions.mp4")
+const bytes = await demoVideo.bytes()
+const omni = new Omni()
+const {videoA} = await omni.load({videoA: Datafile.make(bytes)})
 
 export type State = {
 	files: {
@@ -17,6 +22,9 @@ export type State = {
 			height: number
 		}
 	}
+	outliner: {
+		starred: number[]
+	}
 	viewedItemId: {id: number}
 }
 
@@ -26,21 +34,20 @@ export class Strata {
 			hashes: [],
 		},
 		chron: Trunk.chronicle({
-			timeline: {
-				root: 0,
-				info: "https://omniclip.app/",
-				version: 1,
-				format: "timeline",
-  			items: [
-      			{ id: 0, kind: Kind.Sequence, children: [1, 5] },
-      			{ id: 1, kind: Kind.Stack, children: [2, 3] },
-      			{ id: 2, kind: Kind.Clip, duration: 5000, mediaHash: "vid_a", start: 0 },
-      			{ id: 3, kind: Kind.Clip, duration: 8000, mediaHash: "aud_a", start: 0 },
-      			{ id: 5, kind: Kind.Clip, duration: 7000, mediaHash: "vid_b", start: 0 },
-  			]
-			},
+			timeline:
+			omni.timeline(o =>
+					o.sequence(
+			     o.stack(
+			       o.video(videoA, {duration: 5000}),
+			       o.audio(videoA, {duration: 8000})
+			     ),
+			     o.video(videoA, {duration: 7000})
+			 	)),
 		}),
-		viewedItemId: {id: 0},
+		outliner: {
+			starred: [4]
+		},
+		viewedItemId: {id: 4},
 		settings: {
 			timebase: 30,
 			zoom: 1,
@@ -55,5 +62,6 @@ export class Strata {
 	files = this.trunk.branch(s => s.files)
 	timeline = this.trunk.chronobranch(64, s => s.chron)
 	viewedItemId = this.trunk.branch(s => s.viewedItemId)
+	outliner = this.trunk.branch(s => s.outliner)
 }
 
