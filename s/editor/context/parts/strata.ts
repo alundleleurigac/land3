@@ -1,11 +1,6 @@
 
 import {Chronicle, Trunk} from "@e280/strata"
-import {Omni, Datafile, TimelineFile} from "@omnimedia/omnitool"
-
-const demoVideo = await fetch("/assets/transitions.mp4")
-const bytes = await demoVideo.bytes()
-const omni = new Omni()
-const {videoA} = await omni.load({videoA: Datafile.make(bytes)})
+import {TimelineFile} from "@omnimedia/omnitool"
 
 export type State = {
 	files: {
@@ -34,15 +29,13 @@ export class Strata {
 			hashes: [],
 		},
 		chron: Trunk.chronicle({
-			timeline:
-			omni.timeline(o =>
-					o.sequence(
-			     o.stack(
-			       o.video(videoA, {duration: 5000}),
-			       o.audio(videoA, {duration: 8000})
-			     ),
-			     o.video(videoA, {duration: 7000})
-			 	)),
+			timeline: {
+				info: "https://omniclip.app/",
+				format: "timeline",
+				version: 0,
+				rootId: 1,
+				items: []
+			}
 		}),
 		outliner: {
 			starred: [4]

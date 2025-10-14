@@ -16,6 +16,8 @@ export class EditorContext {
 
 	get strata() { return this.requirements.strata }
 	get controllers() { return this.requirements.controllers }
+	get omni() { return this.requirements.omni }
+	get project() { return this.requirements.project }
 
 	dispose = () => {
 		this.requirements.keybindings.dispose()
