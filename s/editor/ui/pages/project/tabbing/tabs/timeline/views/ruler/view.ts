@@ -1,7 +1,9 @@
 import {html} from "lit"
 import {view} from "@e280/sly"
+import {debounce} from "@e280/stz"
 
 import styleCss from "./style.css.js"
+import {PIXELS_PER_MILLISECOND} from "../../constants.js"
 import {formatTime} from "../../../../utils/format-time.js"
 import {EditorContext} from "../../../../../../../../context/context.js"
 
@@ -9,11 +11,11 @@ export const Ruler = view(use => (context: EditorContext) => {
 	use.styles(styleCss)
 
 	const {zoom, timebase} = context.strata.settings.state
-	const duration = 5000 // mock
+	const duration = 15000 // mock
 
 	const generateMarkers = () => {
 		const markers = []
-		const basePixelsPerSecond = 200 // The width of 1 second at zoom level 1
+		const basePixelsPerSecond = 100 // The width of 1 second at zoom level 1
 		const pixelsPerSecond = basePixelsPerSecond * zoom
 
 		// Define minimum spacing in pixels to avoid clutter
@@ -75,5 +77,42 @@ export const Ruler = view(use => (context: EditorContext) => {
 		return markers
 	}
 
-	return html`<div class="ruler">${generateMarkers()}</div>`
+	const player = context.controllers.player
+
+	const throttledSeek = use.once(() => debounce(50, time => player.seek(time)))
+
+	const ruler = use.wake(async () => {
+		await use.rendered
+		return use.shadow.querySelector(".ruler")
+	})
+
+	const seek = async (event: PointerEvent) => {
+		const rulerRect = (await ruler)!.getBoundingClientRect()
+		const x = event.clientX - rulerRect.left
+		const timeInMs = x / (PIXELS_PER_MILLISECOND * zoom)
+		const timeInSeconds = timeInMs / 1000
+		throttledSeek(timeInSeconds >= 0 ? timeInSeconds : 0)
+		player.currentTime.value =  timeInSeconds >= 0 ? timeInSeconds : 0
+	}
+
+	const handlePointerMove = seek
+
+	const handlePointerDown = (event: PointerEvent) => {
+		seek(event)
+		window.addEventListener("pointermove", handlePointerMove)
+		window.addEventListener("pointerup", handlePointerUp)
+	}
+
+	const handlePointerUp = () => {
+		window.removeEventListener("pointermove", handlePointerMove)
+		window.removeEventListener("pointerup", handlePointerUp)
+	}
+
+	return html`
+		<div
+			@pointerdown=${handlePointerDown}
+			class="ruler"
+		>
+			${generateMarkers()}
+		</div>`
 })
