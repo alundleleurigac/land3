@@ -6,6 +6,7 @@ import {StackView} from "../views/items/stack/view.js"
 import {TimelineVideo} from "../views/items/video/view.js"
 import {SequenceView} from "../views/items/sequence/view.js"
 import {EditorContext} from "../../../../../../../context/context.js"
+import { TimelineText } from "../views/items/text/view.js"
 
 export function renderItem(context: EditorContext, id: number, ancestors: Item.Any[]): Content {
 	const itemsMap = new Map(
@@ -23,6 +24,8 @@ export function renderItem(context: EditorContext, id: number, ancestors: Item.A
 		}
 		case Kind.Video:
 			return TimelineVideo(context, item, ancestors)
+		case Kind.Text:
+			return TimelineText(context, item as Item.Text, ancestors)
 		default:
 			return html`<div>Unknown Item: ${item.kind}</div>`
 	}

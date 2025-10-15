@@ -5,7 +5,6 @@ export default css`@layer view {
 .stack-tracks {
 	display: flex;
 	flex-direction: column;
-	padding-top: 5px;
 }
 
 .stack-block {
@@ -18,8 +17,6 @@ export default css`@layer view {
 	cursor: pointer;
 	border: 1px solid #4a4a4a;
 	transition: background 0.2s ease;
-	height: 4em;
-	margin: 5px;
 	overflow: hidden;
 }
 

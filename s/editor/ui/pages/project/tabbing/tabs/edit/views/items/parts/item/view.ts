@@ -11,7 +11,7 @@ import {EditorContext} from "../../../../../../../../../../context/context.js"
 
 export const TimelineItem = view(use => (
 	context: EditorContext,
-	item: Item.Video,
+	item: Item.Video | Item.Text,
 	content: TemplateResult | DirectiveResult,
 	ancestors: Item.Any[]
 ) => {
@@ -19,11 +19,15 @@ export const TimelineItem = view(use => (
 
 	const {zoom} = context.strata.settings.state
 	const visualWidth = (item.duration ?? 0) * PIXELS_PER_MILLISECOND * zoom
+	const setViewedItem = async () => await context.strata.viewedItemId.mutate(i => i.id = item.id)
+	const setSelectedItem = async () => await context.strata.selectedItem.mutate(i => i.id = item.id)
 
 	return html`
 		<div
+			@dblclick=${setViewedItem}
 			class="item ${item.kind}"
 			?data-selected=${""}
+			@click=${setSelectedItem}
 			style="width: ${visualWidth}px;"
 		>
 			${content}
