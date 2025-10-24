@@ -31,17 +31,6 @@ export const TextControls = view(use => (context: EditorContext, item: Item.Text
 	const options = TEXT_STYLE_OPTIONS
 	const defaults = TEXT_STYLE_DEFAULTS
 
-	const renderControls = (props: TextDetailsProps): TemplateResult => {
-		return html`
-			${renderFontDetails(props)}
-			${renderFillDetails(props)}
-			${renderMultilineDetails(props)}
-			${renderDropShadowDetails(props)}
-			${renderLayoutDetails(props)}
-			${renderStrokeDetails(props)}
-		`
-	}
-
 	if (!item) {
 		return html`
 			<div class="add-text-container">
@@ -53,59 +42,75 @@ export const TextControls = view(use => (context: EditorContext, item: Item.Text
 		`
 	}
 
+	const renderTextControls = (props: TextDetailsProps): TemplateResult => {
+		return html`
+			<div class="controls-group">
+				<label for="content-input">Content</label>
+				<textarea
+					id="content-input"
+					class="text-input"
+					.value=${item.content}
+					@input=${(e: any) => tool.set<Item.Text>(item.id, {content: e.target.value})}
+				></textarea>
+			</div>
+
+			<div>
+				${renderFontDetails(props)}
+				${renderFillDetails(props)}
+				${renderMultilineDetails(props)}
+				${renderDropShadowDetails(props)}
+				${renderLayoutDetails(props)}
+				${renderStrokeDetails(props)}
+			</div>
+		`
+	}
+
+	const renderOtherControls = () => {
+		return html`
+			<div class="controls-group">
+				<h4 class="heading">Transform</h4>
+				${TransformControls(context, item)}
+			</div>
+
+			<div class="controls-group">
+				<h4 class="heading">Compositing</h4>
+				${CompositingControls(context, item)}
+			</div>
+		`
+	}
+
+	const controls = renderOtherControls()
 	const styleItem = tool.require<Item.TextStyle>(item.styleId)
 
 	if(!styleItem) {
-		const controls = renderControls({style: defaults, options, update: () => {}})
+		const textControls = renderTextControls({style: defaults, options, update: () => {}})
 		return html`
-			<button
-				@click=${() => {
-					const style = tool.textStyle({})
-					tool.set<Item.Text>(item.id, {styleId: style.id})
-				}}
-				class=create-styles
-			>
-				create styles ${addSvg}
-			</button>
-			<div class=disabled>
-				<p class=info>using default styles</p>
-				${controls}
+			<div>
+				<button
+					@click=${() => {
+						const style = tool.textStyle({})
+						tool.set<Item.Text>(item.id, {styleId: style.id})
+					}}
+					class=create-styles
+				>
+					create styles ${addSvg}
+				</button>
+				<div class=disabled>${textControls}</div>
+				<div>${controls}</div>
 			</div>
 		`
 	}
 
 	const style = styleItem.style
-	console.log(style)
 
-	const controls = renderControls({
+	const textControls = renderTextControls({
 		style: {...defaults, ...(style ?? {})},
 		options,
 		update: (style) => tool.set<Item.TextStyle>(styleItem.id, {style: {...styleItem.style, ...style}})
 	})
 
 	return html`
-		<div class="controls-group">
-			<label for="content-input">Content</label>
-			<textarea
-				id="content-input"
-				class="text-input"
-				.value=${item.content}
-				@input=${(e: any) => tool.set<Item.Text>(item.id, {content: e.target.value})}
-			></textarea>
-		</div>
-
-		<div>
-			${controls}
-		</div>
-
-		<div class="controls-group">
-			<h4 class="heading">Transform</h4>
-			${TransformControls(context, item)}
-		</div>
-
-		<div class="controls-group">
-			<h4 class="heading">Compositing</h4>
-			${CompositingControls(context, item)}
-		</div>
+		${textControls}
+		${controls}
 	`
 })
