@@ -81,7 +81,7 @@ export const Ruler = view(use => (context: EditorContext) => {
 
 	const throttledSeek = use.once(() => debounce(50, time => player.seek(time)))
 
-	const ruler = use.wake(async () => {
+	const ruler = use.once(async () => {
 		await use.rendered
 		return use.shadow.querySelector(".ruler")
 	})
