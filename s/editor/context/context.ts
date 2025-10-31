@@ -18,6 +18,7 @@ export class EditorContext {
 	get controllers() { return this.requirements.controllers }
 	get omni() { return this.requirements.omni }
 	get project() { return this.requirements.project }
+	get driver() { return this.requirements.driver }
 
 	dispose = () => {
 		this.requirements.keybindings.dispose()

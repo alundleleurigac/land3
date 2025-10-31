@@ -1,6 +1,6 @@
 
 import {Cellar, OpfsForklift} from "@e280/quay"
-import {Datafile, Driver, O, Omni, TimelineFile, VideoPlayer} from "@omnimedia/omnitool"
+import {Datafile, Driver, Kind, O, Omni, TimelineFile, VideoPlayer} from "@omnimedia/omnitool"
 
 import {Strata} from "./strata.js"
 import {CargoController} from "../controllers/cargo.js"
@@ -17,10 +17,9 @@ export async function setupRequirements() {
 	const cellar = new Cellar(forklift)
 	const driver = await Driver.setup()
 	const project = new Omni(driver)
-	const controllers = {
-		cargo: new CargoController(strata, cellar),
-		player: await VideoPlayer.create(driver, strata.timeline.state.timeline as TimelineFile)
-	}
+	await demo(strata, project)
+	const player = await VideoPlayer.create(driver, strata.timeline.state.timeline as TimelineFile)
+	const controllers = {cargo: new CargoController(strata, cellar), player}
 	const omni = new O({
 		get project() {
 			return strata.timeline.state.timeline as TimelineFile
@@ -29,22 +28,27 @@ export async function setupRequirements() {
 			strata.timeline.mutate(state => state.timeline = p)
 		}
 	})
-	demo(strata, project)
-	return {strata, controllers, tabs, keybindings, omni, project}
+	strata.timeline.on(state => player.update(state.timeline as TimelineFile))
+	return {strata, controllers, tabs, keybindings, omni, project, driver}
 }
 
 async function demo(strata: Strata, omni: Omni) {
 	const demoVideo = await fetch("/assets/transitions.mp4")
 	const bytes = await demoVideo.bytes()
 	const {videoA} = await omni.load({videoA: Datafile.make(bytes)})
-	strata.timeline.mutate(state => state.timeline =
+	await strata.timeline.mutate(state => state.timeline =
 		omni.timeline(o =>
 			o.sequence(
 			  o.stack(
+			  	o.text("text123"),
 			    o.video(videoA, {duration: 5000}),
-			    o.audio(videoA, {duration: 8000})
+			    o.audio(videoA, {duration: 8000}),
 			  ),
 			  o.video(videoA, {duration: 7000})
-		)),
+		))
 	)
+	const stack = strata.timeline.state.timeline.items.find(item => item.kind === Kind.Stack)
+	await strata.timeline.mutate(state => state.timeline.rootId = stack!.id)
+	await strata.outliner.mutate(state => state.starred = [stack!.id])
+	await strata.viewedItemId.mutate(state => state.id = stack!.id)
 }

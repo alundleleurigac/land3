@@ -21,6 +21,11 @@ export type State = {
 		starred: number[]
 	}
 	viewedItemId: {id: number}
+	selectedItem: {id: number | null}
+	ui: {
+		timelineScrollLeft: number
+		timelineWidth: number
+	}
 }
 
 export class Strata {
@@ -40,7 +45,8 @@ export class Strata {
 		outliner: {
 			starred: [4]
 		},
-		viewedItemId: {id: 4},
+		selectedItem: {id: null},
+		viewedItemId: {id: 3},
 		settings: {
 			timebase: 30,
 			zoom: 1,
@@ -48,6 +54,10 @@ export class Strata {
 				width: 1920,
 				height: 1080
 			}
+		},
+		ui: {
+			timelineScrollLeft: 0,
+			timelineWidth: 0
 		}
 	})
 
@@ -55,6 +65,8 @@ export class Strata {
 	files = this.trunk.branch(s => s.files)
 	timeline = this.trunk.chronobranch(64, s => s.chron)
 	viewedItemId = this.trunk.branch(s => s.viewedItemId)
+	selectedItem = this.trunk.branch(s => s.selectedItem)
 	outliner = this.trunk.branch(s => s.outliner)
+	ui = this.trunk.branch(s => s.ui)
 }
 

@@ -17,4 +17,5 @@ export const bindings = tact.asBindings({
 	outliner: {
 		// future outliner specific actions
 	},
+	export: {}
 })
