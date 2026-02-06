@@ -37,7 +37,7 @@ export default template(async basic => {
 		body: html`
 			<div class="loading-page-indicator">
 				<img class="logo-loader" src="/assets/icon3.png" />
-				</div>
+				<div class="loader"><div class="loaderBar"></div></div>
 			</div>
 		`
 	})
