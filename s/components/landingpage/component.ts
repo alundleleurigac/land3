@@ -133,25 +133,25 @@ export class LandingPage extends LitElement {
 				<div class="menu" ?data-opened=${this.menuOpened}>
 					<a @click=${() => this.scrollIntoElementView("welcome")} href="#welcome">Home</a>
 					<a @click=${() => this.scrollIntoElementView("capabilities")} href="#capabilities">Features</a>
-					<a @click=${() => this.scrollIntoElementView("coming-soon")} href="#coming-soon">Coming Soon</a>
-					<a class="try" href="#/editor">Try it out ${arrowRightSvg}</a>
+					
+					<a class="try" href="#">🎬 Editor ${arrowRightSvg}</a>
 				</div>
 				<div class="nav">
 					<a @click=${() => this.scrollIntoElementView("welcome")} href="#welcome">Home</a>
 					<a @click=${() => this.scrollIntoElementView("capabilities")} href="#capabilities">Features</a>
-					<a @click=${() => this.scrollIntoElementView("coming-soon")} href="#coming-soon">Coming Soon</a>
+					
 				</div>
 				<div class="nav">
-					<a class="try" href="#/editor">Try it out ${arrowRightSvg}</a>
+					<a class="try" href="#">🎬 Editor ${arrowRightSvg}</a>
 				</div>
 			</nav>
 			
 			<!-- Welcome Section -->
 			<section id="welcome" class="welcome">
-				<p>video editor on the web</p>
+				<p>Edit videos instantly. No installs. No uploads.</p>
 				<h1>
-					<span>Powerful video editor</span><br>
-					<span>right in your browser</span>
+					<span>smart video editor</span><br>
+					<span>right inside your browser</span>
 				</h1>
 				<h2>
 					<span>Open-source, privacy-focused, runs everywhere.</span><br>
@@ -160,12 +160,12 @@ export class LandingPage extends LitElement {
 				<div class="btns">
 					<a
 						class="try"
-						href="#/editor"
+						href="#"
 					>
-						Start for free
+						Create your first project
 					</a>
 					<a
-						href="https://discord.gg/Nr8t9s5wSM"
+						href="#"
 						class="discord"
 						target="_blank"
 					>
@@ -213,7 +213,7 @@ export class LandingPage extends LitElement {
 							</div>
 							<div class="item-more">
 								<h3>Filters</h3>
-								<p>As much as 30+ filters!<br> you can mix and match them too.</p>
+								<p>Choose from 30+ filters or combine them to create your own unique look.</p>
 								<video autoplay loop muted width="250">
 									<source src="/assets/filters.mp4" type="video/mp4" />
 								</video>
@@ -222,7 +222,8 @@ export class LandingPage extends LitElement {
 						<div class="flex">
 							<div class="item-more">
 								<h3>Resizable Panels</h3>
-								<p>Adjustable panels<br>customize workspace the way you want<br>
+								<p>Design your workspace the way you like it.<br>
+Drag, resize, and focus on what matters.<br>
 								</p>
 								<video autoplay loop muted width="250">
 									<source src="/assets/resizable.mp4" type="video/mp4" />
@@ -230,7 +231,7 @@ export class LandingPage extends LitElement {
 							</div>
 							<div class="item-more">
 								<h3>Local Fonts</h3>
-								<p>Auto-loading fonts from<br> your device for seamless typography.<br>
+								<p>Instant access to fonts already on your device.<br> No uploads. No waiting. Just type.<br>
 								</p>
 								<video autoplay loop muted width="250">
 									<source src="/assets/localfonts.mp4" type="video/mp4" />
@@ -238,28 +239,7 @@ export class LandingPage extends LitElement {
 							</div>
 						</div>
 					</div>
-					<div class="export">
-						<div>
-							<h3>Export your video up to 4k!</h3>
-							<ul>
-								<li>No credit card required! <span class="emoji">&#129327;</span></li>
-								<li>Unparalleled speed <span class="emoji">&#9889;</span></li>
-								<li>Choose desired<br> bitrate & aspect ratio <span class="emoji">&#9881;</span></li>
-								<li>
-									Try it out!
-									<a
-										class="try"
-										href="#/editor"
-									>
-										Open editor
-									</a>
-								</li>
-							</ul>
-						</div>
-						<video autoplay loop muted width="250">
-							<source src="/assets/export4k.mp4" type="video/mp4" />
-						</video>
-					</div>
+					
 				</div>
 			</section>
 			
@@ -269,7 +249,7 @@ export class LandingPage extends LitElement {
 					<div class="collab-content">
 						<h2>Edit Together in Real-Time</h2>
 						<p>
-							Create amazing videos as a team with Omniclip's powerful collaboration features.
+							Create amazing videos as a team with SmartVidEdit's powerful collaboration features.
 							Multiple editors can work on the same project simultaneously, seeing changes instantly.
 						</p>
 						<div class=flex>
@@ -422,9 +402,9 @@ export class LandingPage extends LitElement {
 						<div class="item open">
 							<h3>Open source</h3>
 							<div class="gh">
-								<a href="https://github.com/omni-media/omniclip" class="flex">
+								<a href="https://github.com/omni-media/SmartVidEdit" class="flex">
 									<span class="btn btn-github">View on GitHub</span>
-									<img class="stars" src="https://img.shields.io/github/stars/omni-media/omniclip" alt="GitHub Stars">
+									<img class="stars" src="https://img.shields.io/github/stars/omni-media/SmartVidEdit" alt="GitHub Stars">
 								</a>
 							</div>
 							<p>
@@ -483,7 +463,7 @@ export class LandingPage extends LitElement {
 			<section id="coming-soon" class="coming-soon">
 				<div class="coming-soon-header">
 					<h2>Coming Soon <span class="feature-badge">New Features</span></h2>
-					<p>We're constantly improving Omniclip with powerful new features to make your video editing experience even better.</p>
+					<p>We're constantly improving SmartVidEdit with powerful new features to make your video editing experience even better.</p>
 				</div>
 				
 				<div class="coming-soon-container">
@@ -534,7 +514,7 @@ export class LandingPage extends LitElement {
 						<span>Get Notified When Available</span>
 						${bellSvg}
 					</a>
-					<a href="https://github.com/omni-media/omniclip" target="_blank" class="github-link">
+					<a href="https://github.com/omni-media/SmartVidEdit" target="_blank" class="github-link">
 						<span>Follow Development on GitHub</span>
 						${githubSvg}
 					</a>
@@ -545,7 +525,7 @@ export class LandingPage extends LitElement {
 			<section class="developers" id="developers">
 				<h2>For developers <span class="coming-soon-badge">Coming Soon</span></h2>
 				<p class="section-intro">
-					Take full control of Omniclip projects through code, automation, or CI/CD pipelines.
+					Take full control of SmartVidEdit projects through code, automation, or CI/CD pipelines.
 				</p>
 
 				<div class="dev-features-grid">
@@ -564,7 +544,7 @@ export class LandingPage extends LitElement {
 							<div class="code-preview">
 								<pre><code>
 // Create a video timeline programmatically
-const watermark = subtitle("omniclip")
+const watermark = subtitle("SmartVidEdit")
 const xfade = crossfade(500)
 
 const timeline = sequence(
@@ -651,20 +631,20 @@ $ omnitool batch-render ./projects/* --output-dir ./exports
 			<!-- Footer -->
 			<footer>
 				<div class="footer-logo-background">
-					<img src="/assets/icon3.png" alt="Omniclip" />
+					<img src="/assets/icon3.png" alt="SmartVidEdit" />
 				</div>
 				
 				<div class="footer-content">
 					<!-- <div class="footer-main"> -->
-					<!-- 	<span>Copyright © 2024 Omniclip All Rights Reserved.</span> -->
+					<!-- 	<span>Copyright © 2026 SmartVidEdit All Rights Reserved.</span> -->
 					<!-- 	<div class="footer-links"> -->
 					<!-- 		<a>Terms & Conditions</a> -->
 					<!-- 		<a>Privacy Policy</a> -->
 					<!-- 	</div> -->
 					<!-- </div> -->
 					<div class="creator-credit">
-						<span>Made by Przemek Gałęzki</span>
-						<a href="https://github.com/zenkyuv" class="github-link" target="_blank">
+						<span>Made With Love</span>
+						<a href="#" class="github-link" target="_blank">
 							<span>Github</span>
 							${githubSvg}
 						</a>
